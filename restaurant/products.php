@@ -29,7 +29,7 @@ $rows_type = $pdo->query($sql_type)->fetchAll();
 <?php require __DIR__ . '/parts/html-head.php' ?>
 <?php require __DIR__ . '/parts/navbar.php' ?>
 
-<div class="container">
+<div class="container d-flex">
     <div class="row">
         <div class="col-lg-3">
             <?php foreach ($rows_type as $t) : ?>
@@ -38,33 +38,73 @@ $rows_type = $pdo->query($sql_type)->fetchAll();
                     <?php if ($v['type'] == $t['type']) : ?>
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title"><?= $v['name'] ?></h5>
-                                <p class="card-text"><?= $v['price'] ?></p>
+                                <h5 class="card-title" value="<?= $v['name'] ?>"><?= $v['name'] ?></h5>
+                                <p class="card-text" value="<?= $v['price'] ?>"><?= $v['price'] ?></p>
+                                <button type="button" class="btn btn-primary buy-button" >購買</button>
                             </div>
-                            <button type="button" class="btn btn-primary" onclick="checkOptions();return false; ">購買</button>
                         </div>
                     <?php endif; ?>
                 <?php endforeach; ?>
             <?php endforeach; ?>
 
+
+
         </div>
     </div>
+    <div class="cart">
+        
+    </div>
 </div>
-<div class="big">
+<!-- <div class="big">
+    </div> -->
 
    
 
-</div>
 
 <?php require __DIR__ . '/parts/scripts.php' ?>
 <script>
     let big = document.querySelector(".big");
     let productList = document.querySelector("div.col-lg-3");
     let shopping = false;
+    
+    //add item to cart
+    let cartList = document.querySelector(".cart");
+    let proInfo = document.querySelectorAll(".card-body");
+    
+    productList.addEventListener("click", e => {
+        if (e.target.classList.contains("buy-button")) {
+            let buyBtn = e.target;
+            let myPro = buyBtn.parentElement;
+            let proName = myPro.children[0].innerText;
+            let proPrice = myPro.children[1].innerText;
+            let count = 1;
+            let newPro = document.createElement("div");
+            newPro.classList.add("product");
+            newPro.innerHTML = `<h5>${proName}</h5>
+                    <p>${proPrice}</p>
+                    <h5 class="count">${count}</h5>`;
+            
+                     
+    
+            let addBtn = document.createElement("button");
+            addBtn.innerText = "+";
+            addBtn.addEventListener("click", e => {
+                e.target.parentElement.children[2].innerText = ++count;
+            })
+            let delBtn = document.createElement("button");
+            delBtn.innerText = "-";
+            delBtn.addEventListener("click", e => {
+                e.target.parentElement.children[2].innerText = --count;
+                if(count == 0) {
+                    e.target.parentElement.remove();
+                }
+            })
+            newPro.appendChild(addBtn);
+            newPro.appendChild(delBtn);
 
-    function checkOptoins() {
-        fetch('product-options-api.php') 
-    }
+            cartList.appendChild(newPro);   
+        }
+    })
 
 
 
