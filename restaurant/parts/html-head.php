@@ -10,7 +10,7 @@
     <title>Document</title>
     <style>
         .big {
-            width: 60%;
+            width: 20%;
             max-height: 80%;
             background: white;
             position: fixed;

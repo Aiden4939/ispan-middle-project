@@ -18,6 +18,7 @@ $rows = $pdo->query($sql)->fetchAll();
                     <h5 class="card-title"><?= $v['name'] ?></h5>
                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                     <a href="products.php?shop=<?= $v['sid'] ?>" class="btn btn-primary"><i class="fa-solid fa-cart-plus"></i></a>
+                    <a href="products-admin.php?shop=<?= $v['sid'] ?>" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></a>
                 </div>
             </div>
             <?php endforeach; ?>
