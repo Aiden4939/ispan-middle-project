@@ -88,9 +88,10 @@ for ($i = 0; $i < sizeof($_POST['name']); $i++) {
             $folder . $filename
         );
 
-        $src = $folder . $filename;
-    } else {
-        $src = $folder. '0.jpg';
+        $src = $filename;
+    } 
+    else {
+        $src = $rows_check[$i]['src'];
     }
 
 
@@ -151,14 +152,14 @@ for ($i = 0; $i < sizeof($_POST['name']); $i++) {
 
 
 
-if ($stmt->rowCount()) {
-    $output['success'] = true;
-} else {
-    if (empty($output['error'])) {
-        $output['error'] = '資料沒有修改';
-        echo json_encode($output, JSON_UNESCAPED_UNICODE);
-    }
-}
+// if ($stmt->rowCount()) {
+//     $output['success'] = true;
+// } else {
+//     if (empty($output['error'])) {
+//         $output['error'] = '資料沒有修改';
+//         echo json_encode($output, JSON_UNESCAPED_UNICODE);
+//     }
+// }
 
 echo json_encode($output, JSON_UNESCAPED_UNICODE);
     // echo json_encode($list, JSON_UNESCAPED_UNICODE);
