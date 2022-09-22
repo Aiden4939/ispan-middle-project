@@ -1,0 +1,27 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  width: 80%;
+  padding: 50px;
+  margin: 0 auto;
+
+  .row {
+    form {
+      .type-container {
+        width: 50%;
+        // background-color: #ffa;
+        .product {
+          display: flex;
+        }
+      }
+    }
+  }
+}
+
+.hidden {
+  display: none;
+}
