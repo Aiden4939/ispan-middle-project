@@ -5,7 +5,7 @@ $sid = $_GET['shop'];
 $sql_all = "SELECT * FROM `products` WHERE shop_sid=$sid";
 $rows_all = $pdo->query($sql_all)->fetchAll();
 
-$sql_type = "SELECT p.* ,o.product_sid,o.option_type,o.option_name,o.option_price FROM `products` p LEFT JOIN `products_options` o ON p.sid=o.product_sid WHERE p.shop_sid=$sid GROUP BY p.type";
+$sql_type = "SELECT p.* ,o.product_sid,o.option_type,o.option_name,o.option_price FROM `products` p LEFT JOIN `products_options` o ON p.sid=o.product_sid WHERE p.shop_sid=$sid GROUP BY p.type ORDER BY sid";
 $rows_type = $pdo->query($sql_type)->fetchAll();
 
 ?>
@@ -14,6 +14,7 @@ $rows_type = $pdo->query($sql_type)->fetchAll();
 <?php require __DIR__ . '/parts/navbar.php' ?>
 
 <div class="container">
+
     <table>
 
         <thead>
@@ -28,6 +29,7 @@ $rows_type = $pdo->query($sql_type)->fetchAll();
         </thead>
         <tbody>
             <?php for ($k = 0; $k < sizeof($rows_all); $k++) : ?>
+
                 <tr>
                     <td style="display:none ;"><?= $rows_all[$k]['sid'] ?></td>
                     <td><img src="<?= $rows_all[$k]['src'] ?>" alt=""></td>
@@ -35,18 +37,21 @@ $rows_type = $pdo->query($sql_type)->fetchAll();
                     <td><?= $rows_all[$k]['price'] ?></td>
                     <td><?= ($rows_all[$k]['available'] == '1') ? '上架中' : '尚未上架' ?></td>
                     <td>
-                        <button type="button" onclick="editProduct();return false;" class="edit-btn">修改</button>
+                        <!-- <button type="button" onclick="editProduct();return false;" class="edit-btn">修改</button> -->
+                        <a href="" onclick="return false;" class="edit-btn"><i class="fa-solid fa-pen-to-square edit-btn" ></i></a>
                     </td>
                     <td>
-                        <button type="button" onclick="deleteProduct(event);return false;" class="delete-btn">刪除</button>
+                        <!-- <button type="button" onclick="deleteProduct(event);return false;" class="delete-btn">刪除</button> -->
+                        <a href="" onclick="deleteProduct(event);return false;" class="delete-btn"><i class="fa-solid fa-trash-can delete-btn"></i></a>
                     </td>
                 </tr>
             <?php endfor; ?>
 
         </tbody>
     </table>
-    <button type="button" class="add-btn">新增商品
-    </button>
+    <!-- <button type="button" class="add-btn">新增商品
+    </button> -->
+    <div class="add-btn">新增<br>商品</div>
 </div>
 <div class="edit-form hidden">
     <form action="" name="form1">
@@ -68,7 +73,7 @@ $rows_type = $pdo->query($sql_type)->fetchAll();
         <input type="text" name="shop_sid" value="<?= $sid ?>" style="display:none;">
         <input type="text" name="state" value="" style="display:none;">
         <button type="button" class="submit-btn" onclick="submitForm();return false;">儲存</button>
-        <button type="button" class="submit-btn" onclick="giveUpForm();return false;">放棄修改</button>
+        <button type="button" class="submit-btn" onclick="cancel();return false;">取消</button>
     </form>
 </div>
 
@@ -77,6 +82,7 @@ $rows_type = $pdo->query($sql_type)->fetchAll();
     let container = document.querySelector('.container');
     let editBox = document.querySelector(".edit-form");
     container.addEventListener("click", e => {
+        console.log(e.target)
         if (e.target.classList.contains("edit-btn")) {
             editBox.classList.remove("hidden");
             let editProduct = e.target.closest("tr");
@@ -89,21 +95,27 @@ $rows_type = $pdo->query($sql_type)->fetchAll();
             console.log(editBoxList[4])
             if (editProductList[4].innerText == '上架中') {
                 editBoxList[4].checked = true;
+            } else {
+                editBoxList[4].checked = false;
             }
 
         }
         if (e.target.classList.contains("add-btn")) {
             editBox.classList.remove("hidden");
+            editBox.querySelector("img").src = '';
+            editBox.querySelectorAll("input")[0].value = '';
+            editBox.querySelectorAll("input")[2].value = '';
+            editBox.querySelectorAll("input")[3].value = '';
         }
     })
 
-    function editProduct() {
-        // let editForm = document.querySelector(".edit-form");
-        let editBox = document.querySelector(".edit-form");
-        editBox.classList.remove("hidden");
-        // document.form1.style.display = 'block';
-        // document.form1.name.value
-    }
+    // function editProduct() {
+    //     // let editForm = document.querySelector(".edit-form");
+    //     let editBox = document.querySelector(".edit-form");
+    //     editBox.classList.remove("hidden");
+    //     // document.form1.style.display = 'block';
+    //     // document.form1.name.value
+    // }
 
     function deleteProduct(e) {
         let delProduct = e.target.closest("tr");
@@ -143,6 +155,10 @@ $rows_type = $pdo->query($sql_type)->fetchAll();
                 location.reload();
             }
         })
+    }
+
+    function cancel() {
+        editBox.classList.add('hidden')
     }
 </script>
 <?php require __DIR__ . '/parts/html-foot.php' ?>

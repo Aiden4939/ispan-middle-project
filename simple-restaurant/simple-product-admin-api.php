@@ -21,7 +21,7 @@ $folder = __DIR__ . '/upload/'; // 上傳檔案的資料夾
 //           'src' =>   $_FILES['photo']
 
 // ];
-// echo json_encode($_POST, JSON_UNESCAPED_UNICODE);
+// echo json_encode($list, JSON_UNESCAPED_UNICODE);
 // exit;
 
 
@@ -126,7 +126,9 @@ $stmt_update = $pdo->prepare($sql_update);
 
 
 // 將available轉成1,0
-$isAvail = $_POST['available'] == 'on' ? 1 : 0;
+
+// $isAvail = $_POST['available'] == 'on' ? 1 : 0;
+$isAvail = (!empty($_POST['available'])) ? 1 : 0;
 
 
 if (empty($_POST['sid'])) {
