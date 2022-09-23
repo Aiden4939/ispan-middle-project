@@ -14,7 +14,6 @@ $rows_type = $pdo->query($sql_type)->fetchAll();
 <?php require __DIR__ . '/parts/navbar.php' ?>
 
 <div class="container">
-
     <table>
 
         <thead>
@@ -67,7 +66,9 @@ $rows_type = $pdo->query($sql_type)->fetchAll();
         <input type="checkbox" class="available" name="available" id="available">
         <label class=" available" for="available">是否上架</label>
         <input type="text" name="shop_sid" value="<?= $sid ?>" style="display:none;">
+        <input type="text" name="state" value="" style="display:none;">
         <button type="button" class="submit-btn" onclick="submitForm();return false;">儲存</button>
+        <button type="button" class="submit-btn" onclick="giveUpForm();return false;">放棄修改</button>
     </form>
 </div>
 
