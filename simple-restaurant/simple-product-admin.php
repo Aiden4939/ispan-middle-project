@@ -117,6 +117,20 @@ $rows_type = $pdo->query($sql_type)->fetchAll();
     //     // document.form1.name.value
     // }
 
+
+    //預覽圖片
+    editBox.addEventListener("change", function(e) {
+        if (e.target.type == 'file') {
+            let myFile = e.target.files[0];
+            let reader = new FileReader();
+
+            reader.addEventListener("load", function() {
+                e.target.parentElement.querySelector("img").src = reader.result;
+            }, false);
+            reader.readAsDataURL(myFile);
+        }
+    }, false);
+
     function deleteProduct(e) {
         let delProduct = e.target.closest("tr");
         if (confirm("確定要刪除這個商品?")) {
