@@ -84,7 +84,6 @@ $rows_type = $pdo->query($sql_type)->fetchAll();
     let container = document.querySelector('.container');
     let editBox = document.querySelector(".edit-form");
     container.addEventListener("click", e => {
-        console.log(e.target)
         if (e.target.classList.contains("edit-btn")) {
             editBox.classList.remove("hidden");
             let editProduct = e.target.closest("tr");
