@@ -83,7 +83,7 @@ if (!empty($_FILES['photo']['name'])) {
 
     $src = './upload/' . $filename;
 } else {
-    $src = './upload/' . '0.jpg';
+    $src = $_POST['src'];
 }
 
 

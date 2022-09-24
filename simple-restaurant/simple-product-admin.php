@@ -33,6 +33,7 @@ $rows_type = $pdo->query($sql_type)->fetchAll();
                 <tr>
                     <td style="display:none ;"><?= $rows_all[$k]['sid'] ?></td>
                     <td><img src="<?= $rows_all[$k]['src'] ?>" alt=""></td>
+                    <td style="display:none ;"><?= $rows_all[$k]['src'] ?></td>
                     <td><?= $rows_all[$k]['name'] ?></td>
                     <td><?= $rows_all[$k]['price'] ?></td>
                     <td><?= ($rows_all[$k]['available'] == '1') ? '上架中' : '尚未上架' ?></td>
@@ -61,6 +62,7 @@ $rows_type = $pdo->query($sql_type)->fetchAll();
         <input type="file" class="file" name="photo" accept="image/png,image/jpeg">
 
         <img class="photo" src="" alt="">
+        <input type="text" name="src" value="" style="display:none;">
 
         <label for="product-name" class="">餐點名稱</label>
         <input type="text" class="name" name="name" value="">
@@ -92,11 +94,11 @@ $rows_type = $pdo->query($sql_type)->fetchAll();
             editBoxList[0].value = editProductList[0].innerText;
             editBoxList[2].value = editProductList[2].innerText;
             editBoxList[3].value = editProductList[3].innerText;
-            console.log(editBoxList[4])
-            if (editProductList[4].innerText == '上架中') {
-                editBoxList[4].checked = true;
+            editBoxList[4].value = editProductList[4].innerText;
+            if (editProductList[5].innerText == '上架中') {
+                editBoxList[5].checked = true;
             } else {
-                editBoxList[4].checked = false;
+                editBoxList[5].checked = false;
             }
 
         }
@@ -104,8 +106,8 @@ $rows_type = $pdo->query($sql_type)->fetchAll();
             editBox.classList.remove("hidden");
             editBox.querySelector("img").src = '';
             editBox.querySelectorAll("input")[0].value = '';
-            editBox.querySelectorAll("input")[2].value = '';
             editBox.querySelectorAll("input")[3].value = '';
+            editBox.querySelectorAll("input")[4].value = '';
         }
     })
 
